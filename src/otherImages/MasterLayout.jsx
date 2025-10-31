@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import ThemeToggleButton from "../helper/ThemeToggleButton";
 import webLogo from "../otherImages/logo-icon.png"
-import webSideLogo from "../otherImages/logo.svg"
+import webSideLogo from "../otherImages/logo-side.png"
 import profilePic from "../otherImages/profilePic.png"
 
 const MasterLayout = ({ children }) => {
@@ -11,6 +11,10 @@ const MasterLayout = ({ children }) => {
   const [sidebarActive, setSidebarActive] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const location = useLocation();
+
+const handleClick = () => {
+  localStorage.removeItem("role", "admin");
+}
 
   useEffect(() => {
     const openActiveDropdown = () => {
@@ -68,6 +72,7 @@ const MasterLayout = ({ children }) => {
               src={webLogo}
               alt='site logo'
               className='dark-logo'
+              style={{filter:"brightness(100)",}}
             />
             <img
               src={webSideLogo}
@@ -79,7 +84,6 @@ const MasterLayout = ({ children }) => {
         </div>
         <div className='sidebar-menu-area'>
           <ul className='sidebar-menu' id='sidebar-menu'>
-            {role === "admin" && (
             <>
               <li>
                 <NavLink to='/dashboard' 
@@ -132,9 +136,9 @@ const MasterLayout = ({ children }) => {
                 </NavLink>
               </li>       
             </>
-            )}
+            
 
-            {role === "client" && (
+            {/* {role === "client" && (
               <>
                 <li>
                   <NavLink to='/all-packages' className={(navData) => navData.isActive ? "active-page" : ""}>
@@ -161,7 +165,7 @@ const MasterLayout = ({ children }) => {
                   </NavLink>
                 </li>
               </>
-            )}
+            )} */}
           </ul>
         </div>
         <div className="bottomSide">
@@ -177,6 +181,7 @@ const MasterLayout = ({ children }) => {
                 <li>
                  <NavLink
                   to='/'
+                  onClick={handleClick}
                 >
                   <Icon icon='material-symbols:logout-rounded' className='menu-icon' width="28" height="28" />
                   <span>Log Out</span>
@@ -217,16 +222,16 @@ const MasterLayout = ({ children }) => {
                 >
                   <Icon icon='heroicons:bars-3-solid' className='icon' />
                 </button>
-                <form className='navbar-search'>
+                {/* <form className='navbar-search'>
                   <input type='text' name='search' placeholder='Search' />
                   <Icon icon='ion:search-outline' className='icon' />
-                </form>
+                </form> */}
               </div>
             </div>
             <div className='col-auto'>
               <div className='d-flex flex-wrap align-items-center gap-3'>
                 {/* ThemeToggleButton */}
-                <ThemeToggleButton />
+                {/* <ThemeToggleButton /> */}
 
                 {/* Notification dropdown end */}
                 <div className='dropdown'>
@@ -299,6 +304,7 @@ const MasterLayout = ({ children }) => {
                         <Link
                           className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3'
                           to='/'
+                          onClick={handleClick}
                         >
                           <Icon icon='lucide:power' className='icon text-xl' />{" "}
                           Log Out

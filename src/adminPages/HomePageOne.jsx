@@ -10,12 +10,8 @@ const HomePageOne = () => {
       <MasterLayout>
         {/* Breadcrumb */}
         <HomeTopBar  
-         title="Welcome Back, John Doe!"
-         desc="Your recruitment metrics and activities at a glance"
-         btnText="Create Client"
-         btnLink="/add-client"
-         btnText2="Create Invoice"
-         btnLink2="/create-invoice"
+         title="Welcome Back, Admin"
+         desc="Your recruitment metrics and activities at a glancee"
 
         />
 

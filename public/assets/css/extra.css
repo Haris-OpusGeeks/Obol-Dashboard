@@ -91,7 +91,7 @@
   --font-sm: 0.875rem;
   --font-xs: 0.75rem;
   --font-xxs: 0.625rem;
-  --primary-main:#232459;
+  --primary-main:#eb1c24;
   --primary-50: #e4f1ff;
   --primary-100: #bfdcff;
   --primary-200: #95c7ff;
@@ -443,7 +443,7 @@ table.dataTable td.dt-type-date {
 }
 
 .sidebar-menu li > a.active-page:hover {
-  color: #111827;
+  color: #fff;
 }
 .me-8 {
   margin-right: 8px;
@@ -491,13 +491,13 @@ table.dataTable td.dt-type-date {
   color:#626262;
 }
 .card-1{
-  background-color: #EDEEFC !important;
+  background-color: #ecc9cd !important;
 }
 .card-2{
-  background-color: #E6F1FD !important;
+  background-color: #ecc9cd !important;
 }
 .bg-primary{
-  background-color: #232459 !important;transition: all 0.4s ;color:var(--neutral-100);border: 1px solid #232459;
+  background-color: #eb1c24 !important;transition: all 0.4s ;color:var(--neutral-100);border: 1px solid #eb1c24;
 }
 .bg-primary:hover{
   background-color: transparent !important;color: var(--primary-main) !important;border-color: var(--primary-main) !important;
@@ -510,12 +510,12 @@ table.dataTable td.dt-type-date {
   background-color: transparent !important;transition: all 0.4s;border-color: var(--neutral-700) !important;color: var(--neutral-900);
 }
 .bg-secondary:hover{
-  background-color: #232459 !important;color: #fff !important;border-color: #232459 !important;
+  background-color: #eb1c24 !important;color: #fff !important;border-color: #eb1c24 !important;
 }
 .bg-secondary svg{transition: all 0.4s;}
 .bg-secondary:hover svg{color: #fff !important;}
 .primaryFixColor{
-  color: #232459 !important;
+  color: #eb1c24 !important;
 }
 .blackColor{
   color:  #000 !important;
@@ -546,7 +546,7 @@ table.dataTable td.dt-type-date {
 .dynamicTable tr td:nth-child(1),.dynamicTable tr th:nth-child(1){text-align: left !important;}
 .dynamicTable tr td.price-cell span{
   background: #ECECEC;
-  color: #232459;
+  color: #eb1c24;
   font-weight: 700;
   padding: 4px 5px;
   border-radius: 6px;
@@ -602,7 +602,7 @@ table.dataTable td.dt-type-date {
 .packageTable tr .app {background-color: #FFF6D3;color: #ECB900;}
 .packageTable tr .website {background-color: #E7F7EF;color: #0CAF60;}
 .packageTable tr .seo {background-color: #DCE7F9;color: #2F78EE;}
-.packageTable tr .col-price{ background: #ECECEC; color: #232459; font-weight: 700; padding: 8px 5px; border-radius: 6px; width: 100px; text-align: center; } 
+.packageTable tr .col-price{ background: #ECECEC; color: #eb1c24; font-weight: 700; padding: 8px 5px; border-radius: 6px; width: 100px; text-align: center; } 
 .packageTable tr .col-price.packagePrice{width: 140px !important;}
 .packageTable table tr td { text-align: center !important; font-family: "Urbanist", sans-serif !important;color: var(--neutral-900) !important; }
 .packageTable .MuiSvgIcon-root{fill: var(--neutral-900) !important;}
@@ -615,7 +615,7 @@ table.dataTable td.dt-type-date {
 
 .col-description{width: 250px; text-overflow: ellipsis; overflow: hidden; display: -webkit-box !important; -webkit-line-clamp: 3; -webkit-box-orient: vertical; white-space: normal; text-align: left; margin: auto;}
 .col-deli{width: 230px; background: #EAEAEA; padding: 10px; justify-content: center; border-radius: 6px;}
-.col-deli .deli{color: #232459; font-weight: 600; padding-right: 5px;}
+.col-deli .deli{color: #eb1c24; font-weight: 600; padding-right: 5px;}
 
 .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {font-size: 0.944rem !important;}
 /* Custom datepicker styles */
@@ -638,12 +638,12 @@ table.dataTable td.dt-type-date {
 .react-datepicker__day--selected,
 .react-datepicker__day--in-selecting-range,
 .react-datepicker__day--in-range {
-  background-color: #232459 !important;
+  background-color: #eb1c24 !important;
   color: white !important;
 }
 
 .react-datepicker__day--keyboard-selected {
-  background-color: #232459 !important;
+  background-color: #eb1c24 !important;
   color: white !important;
 }
 
@@ -730,7 +730,7 @@ button.MuiIconButton-sizeMedium[aria-label=Search] svg{fill: var(--neutral-100) 
     font-weight: 600;
     display: flex;
     align-items: center;
-    color: #fff;
+    color: #000;
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;

@@ -15,15 +15,15 @@ const DashBoardLayerOne = () => {
             <section className="row gy-4 mt-1">
 
                 {/* SalesStatisticOne */}
-                <SalesStatisticOne />
+                {/* <SalesStatisticOne /> */}
 
                 {/* UsersOverviewOne */}
-                <UsersOverviewOne />
+                {/* <UsersOverviewOne /> */}
 
-                <UsersOverviewTwo />
+                {/* <UsersOverviewTwo /> */}
 
                 {/* LatestRegisteredOne */}
-                <ClientInvoiceList/>
+                {/* <ClientInvoiceList/> */}
 
             </section>
         </>

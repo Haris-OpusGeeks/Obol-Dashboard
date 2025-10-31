@@ -18,7 +18,7 @@ const AddPackageForm = () => {
   });
 
   const categoryOptions = [
-    { value: 'Koderspedia', label: 'Koderspedia' },
+    { value: 'OBOL', label: 'OBOL' },
     { value: 'Webflow Creators', label: 'Webflow Creators' },
     { value: 'Shopify Web Creators', label: 'Shopify Web Creators' },
   ];
