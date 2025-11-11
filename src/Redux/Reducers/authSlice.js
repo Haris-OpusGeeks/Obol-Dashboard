@@ -62,6 +62,9 @@ const authSlice = createSlice({
       state.refreshToken = null;
       localStoreUtil.removeAll();
     },
+    updateAccessToken: (state, action) => {
+    state.access_token = action.payload;
+  },
   },
   extraReducers: (builder) => {
     builder
@@ -95,5 +98,5 @@ const persistConfig = {
   blacklist: ["isError", "isSuccess", "isLoading"],
 };
 
-export const { destroySession } = authSlice.actions;
+export const { destroySession,updateAccessToken } = authSlice.actions;
 export default persistReducer(persistConfig, authSlice.reducer);

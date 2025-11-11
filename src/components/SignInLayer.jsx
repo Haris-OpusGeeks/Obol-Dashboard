@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import banner from "../otherImages/sigupbanner.png";
+import banner from "../otherImages/loginBanner.png";
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../Redux/Reducers/authSlice";
@@ -28,14 +28,17 @@ const SignInLayer = () => {
         onDone: () => {
           navigate("/dashboard"); 
         },
-      })
+      })  
     );
   };
-  React.useEffect(() => {
-  if (isLoggedIn) {
-    navigate("/dashboard");
-  }
-}, [isLoggedIn, navigate]);
+//   React.useEffect(() => {
+//   if (isLoggedIn) {
+//     navigate("/dashboard");
+//   }
+//   else{
+//     navigate("/");
+//   }
+// }, [isLoggedIn, navigate]);
 
   return (
     <section className="auth bg-base d-flex">
@@ -105,7 +108,7 @@ const SignInLayer = () => {
                 </div>
               )}
 
-              <div className="d-flex justify-content-between gap-2">
+              {/* <div className="d-flex justify-content-between gap-2">
                 <div className="form-check style-check d-flex align-items-center">
                   <input
                     className="form-check-input border border-neutral-300"
@@ -119,7 +122,7 @@ const SignInLayer = () => {
                 <Link to="#" className="primaryColor fw-medium">
                   Forgot Password?
                 </Link>
-              </div>
+              </div> */}
 
               <button
                 type="submit"
@@ -129,13 +132,13 @@ const SignInLayer = () => {
                 {isLoading ? "Signing In..." : "Sign In"}
               </button>
 
-              <div className="mt-32 center-border-horizontal text-center">
+              {/* <div className="mt-32 center-border-horizontal text-center">
                 <span className="bg-base z-1 px-4 fw-bold">
                   Or Continue With
                 </span>
-              </div>
+              </div> */}
 
-              <div className="mt-32 d-flex align-items-center gap-3 justify-content-center">
+              {/* <div className="mt-32 d-flex align-items-center gap-3 justify-content-center">
                 <button
                   type="button"
                   className="fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50"
@@ -146,8 +149,8 @@ const SignInLayer = () => {
                   />
                   Google
                 </button>
-              </div>
-
+              </div> */}
+{/* 
               <div className="mt-32 text-center text-sm">
                 <p className="mb-0">
                   Don’t have an account?{" "}
@@ -155,7 +158,7 @@ const SignInLayer = () => {
                     Sign Up
                   </Link>
                 </p>
-              </div>
+              </div> */}
             </Form>
           </Formik>
         </div>

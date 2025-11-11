@@ -5,16 +5,19 @@ import SignInPage from "./adminPages/SignInPage";
 import SignUpPage from "./adminPages/SignUpPage";
 import AccessDeniedPage from "./adminPages/AccessDeniedPage";
 import RouteScrollToTop from "./helper/RouteScrollToTop";
-import ManagePackages from "./adminPages/ManagePackages";
-import ManageClients from "./adminPages/ManageClients";
-import AddClientPage from "./adminPages/AddClientPage";
+import ManageStatistics from "./adminPages/ManageStatistics";
+import ManageClients from "./adminPages/Users";
+import AddUserPage from "./adminPages/AddUserPage";
 import AddPackagePage from "./adminPages/AddPackagePage";
 import EditPackagePage from "./adminPages/EditPackagePage";
-import EditClientPage from "./adminPages/EditClientPage";
-import ManageInvoices from "./adminPages/ManageInvoices";
+import EditUserPage from "./adminPages/EditUserPage";
+import InactiveUsers from "./adminPages/InactiveUsers";
 import CreateInvoicePage from "./adminPages/CreateInvoicePage";
-import LoginHistoryPage from "./adminPages/LoginHistoryPage";
+import Transactions from "./adminPages/Transactions";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Coupons from "./adminPages/Coupons";
+import AddCouponPage from "./adminPages/AddCouponPage";
+import EditCouponPage from "./adminPages/EditCouponPage";
 
 function App() {
   return (
@@ -28,15 +31,18 @@ function App() {
 
         {/* Protected Routes */}
         <Route path="/dashboard" element={<ProtectedRoute element={<HomePageOne />} />} />
-        <Route path="/manage-clients" element={<ProtectedRoute element={<ManageClients />} />} />
-        <Route path="/manage-packages" element={<ProtectedRoute element={<ManagePackages />} />} />
-        <Route path="/add-client" element={<ProtectedRoute element={<AddClientPage />} />} />
+        <Route path="/users" element={<ProtectedRoute element={<ManageClients />} />} />
+        <Route path="/statistics" element={<ProtectedRoute element={<ManageStatistics />} />} />
+        <Route path="/add-user" element={<ProtectedRoute element={<AddUserPage />} />} />
         <Route path="/add-package" element={<ProtectedRoute element={<AddPackagePage />} />} />
         <Route path="/edit-package" element={<ProtectedRoute element={<EditPackagePage />} />} />
-        <Route path="/edit-client" element={<ProtectedRoute element={<EditClientPage />} />} />
-        <Route path="/manage-invoice" element={<ProtectedRoute element={<ManageInvoices />} />} />
+        <Route path="/edit-user" element={<ProtectedRoute element={<EditUserPage />} />} />
+        <Route path="/inactive-users" element={<ProtectedRoute element={<InactiveUsers />} />} />
         <Route path="/create-invoice" element={<ProtectedRoute element={<CreateInvoicePage />} />} />
-        <Route path="/login-history" element={<ProtectedRoute element={<LoginHistoryPage />} />} />
+        <Route path="/transactions" element={<ProtectedRoute element={<Transactions />} />} />
+        <Route path="/coupons" element={<ProtectedRoute element={<Coupons />} />} />
+        <Route path="/add-coupon" element={<ProtectedRoute element={<AddCouponPage />} />} />
+        <Route path="/edit-coupon" element={<ProtectedRoute element={<EditCouponPage />} />} />
 
         {/* Fallback */}
         <Route path="*" element={<ErrorPage />} />

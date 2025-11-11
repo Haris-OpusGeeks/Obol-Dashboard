@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate  } from "react-router-dom";
 import ThemeToggleButton from "../helper/ThemeToggleButton";
 import webLogo from "../otherImages/logo-icon.png"
 import webSideLogo from "../otherImages/logo-side.png"
 import profilePic from "../otherImages/profilePic.png"
+import localStoreUtil from "../Redux/Utils/localStore";
+import Swal from "sweetalert2";
 
 const MasterLayout = ({ children }) => {
-  const role = localStorage.getItem("role");
   const [sidebarActive, setSidebarActive] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const location = useLocation();
+    const navigate = useNavigate();
 
-const handleClick = () => {
-  localStorage.removeItem("role", "admin");
-}
+  const handleLogout = async () => {
+      localStoreUtil.removeAll();
+      navigate("/", { replace: true });
+  };
 
   useEffect(() => {
     const openActiveDropdown = () => {
@@ -101,87 +104,58 @@ const handleClick = () => {
               </li>
               <li>
                 <NavLink
-                  to='/manage-clients'
+                  to='/users'
                   className={(navData) => (navData.isActive ? "active-page" : "")}
                 >
                   <Icon icon='mdi:account-group' className='menu-icon'width="25" height="25" />
-                  <span>Manage Clients</span>
+                  <span>Users</span>
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  to='/manage-packages'
+                  to='/statistics'
                   className={(navData) => (navData.isActive ? "active-page" : "")}
                 >
-                  <Icon icon='carbon:trophy' className='menu-icon' width="28" height="28" />
-                  <span>Packages</span>
+                  <Icon icon='mdi:analytics' className='menu-icon' width="28" height="28" />
+                  <span>Statistics</span>
                 </NavLink>
               </li>   
               <li>
                 <NavLink
-                  to='/manage-invoice'
+                  to='/inactive-users'
                   className={(navData) => (navData.isActive ? "active-page" : "")}
                 >
-                  <Icon icon='akar-icons:clipboard' className='menu-icon' width="28" height="28" />
-                  <span>Invoices</span>
+                  <Icon icon='solar:user-block-bold' className='menu-icon' width="28" height="28" />
+                  <span>Inactive Users</span>
                 </NavLink>
               </li>    
               <li>
                 <NavLink
-                  to='/login-history'
+                  to='/transactions'
                   className={(navData) => (navData.isActive ? "active-page" : "")}
                 >
-                  <Icon icon='teenyicons:briefcase-alt-outline' className='menu-icon' width="23" height="23" style={{marginRight:"10px",}} />
-                  <span>Login Activity</span>
+                  <Icon icon='ic:baseline-currency-exchange' className='menu-icon' width="23" height="23" style={{marginRight:"10px",}} />
+                  <span>Transactions</span>
                 </NavLink>
-              </li>       
+              </li>  
+              <li>
+                <NavLink
+                  to='/coupons'
+                  className={(navData) => (navData.isActive ? "active-page" : "")}
+                >
+                  <Icon icon='solar:ticket-bold' className='menu-icon' width="23" height="23" style={{marginRight:"10px",}} />
+                  <span>Coupon Code</span>
+                </NavLink>
+              </li>      
             </>
-            
-
-            {/* {role === "client" && (
-              <>
-                <li>
-                  <NavLink to='/all-packages' className={(navData) => navData.isActive ? "active-page" : ""}>
-                    <Icon icon='carbon:categories' className='menu-icon' width="24" height="24" />
-                    <span>All Packages</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to='/my-packages' className={(navData) => navData.isActive ? "active-page" : ""}>
-                    <Icon icon='mdi:package-variant' className='menu-icon' width="24" height="24" />
-                    <span>My Packages</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to='/payment-history' className={(navData) => navData.isActive ? "active-page" : ""}>
-                    <Icon icon='fluent:payment-20-regular' className='menu-icon' width="24" height="24" />
-                    <span>Payment History</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to='/edit-profile' className={(navData) => navData.isActive ? "active-page" : ""}>
-                    <Icon icon="material-symbols:settings-outline-rounded" width="24" height="24" />
-                    <span>Settings</span>
-                  </NavLink>
-                </li>
-              </>
-            )} */}
           </ul>
         </div>
         <div className="bottomSide">
               <ul>
                 <li>
-                <NavLink
-                  to='#'
-                >
-                  <Icon icon='tabler:building-estate' className='menu-icon' width="28" height="28" />
-                  <span>Help Center</span>
-                </NavLink>
-                </li>
-                <li>
                  <NavLink
                   to='/'
-                  onClick={handleClick}
+                  onClick={handleLogout}
                 >
                   <Icon icon='material-symbols:logout-rounded' className='menu-icon' width="28" height="28" />
                   <span>Log Out</span>
@@ -250,11 +224,8 @@ const handleClick = () => {
                     <div className='py-12 px-16 radius-8 bg-primary-50 mb-16 d-flex align-items-center justify-content-between gap-2'>
                       <div>
                         <h6 className='text-lg text-primary-light fw-semibold mb-2'>
-                          Peter Webb
-                        </h6>
-                        <span className='text-secondary-light fw-medium text-sm'>
                           Admin
-                        </span>
+                        </h6>
                       </div>
                       <button type='button' className='hover-text-danger'>
                         <Icon
@@ -304,7 +275,7 @@ const handleClick = () => {
                         <Link
                           className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3'
                           to='/'
-                          onClick={handleClick}
+                          onClick={handleLogout}
                         >
                           <Icon icon='lucide:power' className='icon text-xl' />{" "}
                           Log Out

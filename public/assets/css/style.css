@@ -667,6 +667,7 @@ th {
 /* === reset css end === */
 /* === reset css end === */
 /* === color css start === */
+.whiteText{color: #fff !important;}
 .text-primary-50 {
   color: var(--primary-50) !important;
 }

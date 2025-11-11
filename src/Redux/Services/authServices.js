@@ -11,6 +11,21 @@ class AuthServices {
     return response;
     
   };
+
+  refreshAccessToken = async (refreshToken) => {
+    const data = {
+      grantType: "refresh_token",
+      refreshToken: refreshToken,
+    };
+
+    const response = await fetchApi({
+      method: "POST",
+      endPoint: endPoints.REFRESH_TOKEN, 
+      data,
+    });
+
+    return response;
+  };
   
 }
 

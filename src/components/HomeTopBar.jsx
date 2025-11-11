@@ -13,7 +13,7 @@ const HomeTopBar = ({ title , desc,btnText, btnLink,btnText2, btnLink2, btnOnCli
                   <Link to={btnLink} className="btn bg-primary text-white d-flex gap-10">
                     <Icon icon="akar-icons:plus" className="text-white fs-4 mb-0" />
                     {btnText}
-                  </Link>
+                  </Link> 
                 ) : (
                   <button></button>
                 )}
