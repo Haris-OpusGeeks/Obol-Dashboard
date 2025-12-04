@@ -80,11 +80,10 @@ const CouponDataTable = () => {
       label: "Name",
       options: {
         customBodyRender: (value, tableMeta) => {
-          const { clientImage } = formattedData[tableMeta.rowIndex];
           return (
             <div className="d-flex align-items-center gap-2">
               <img
-                src={clientImage || DefaultAvatar}
+                src={DefaultAvatar}
                 alt="avatar"
                 style={{
                   height: "35px",

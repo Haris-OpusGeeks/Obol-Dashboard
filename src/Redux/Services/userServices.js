@@ -49,6 +49,16 @@ class UserServices {
     });
     return response;
   };
+
+  getUserByID = async (data) => {
+    const response = await fetchApi({
+      method: "POST",
+      endPoint: endPoints.GET_USER_BY_ID,
+      token: true,
+      data,
+    });
+    return response;
+  };
 }
 
 

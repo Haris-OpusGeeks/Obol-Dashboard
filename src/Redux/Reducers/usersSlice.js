@@ -4,6 +4,7 @@ import userServices from "../Services/userServices";
 const initialState = {
   userData: [],
   inactiveData: [],
+  userDataByID: [],
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -18,7 +19,7 @@ export const getUserData = createAsyncThunk(
       const { status, data } = response;
 
       if (status === 200 || status === 201) {
-         console.log("USerDta>>>",data?.data);
+         console.log("UserData>>>",data?.data);
         return data?.data || [];
       } else {
         return rejectWithValue("Unexpected response status: " + status);
@@ -33,7 +34,7 @@ export const getUserData = createAsyncThunk(
 
 export const addUser = createAsyncThunk(
   "users/addUser",
-  async (userData, { rejectWithValue }) => {
+  async (userData, { rejectWithValue }) => { 
     try {
       const response = await userServices.addUser(userData);
       const { status, data } = response;
@@ -93,6 +94,30 @@ export const markDead = createAsyncThunk(
         error.response?.data?.message ||
           error.message ||
           "Failed to mark user dead"
+      );
+    }
+  }
+);
+
+export const getUserByID = createAsyncThunk(
+  "users/getUserById",
+  async (usergetId, { rejectWithValue }) => {
+    try {
+      const response = await userServices.getUserByID({ userId: usergetId });
+      const { status, data } = response;
+
+      if (status === 200 || status === 201) {
+        return data?.data || null;
+       
+      } else {
+        return rejectWithValue("Unexpected response status: " + status);
+      }
+    } catch (error) {
+      console.error("Get User By ID API error:", error);
+      return rejectWithValue(
+        error.response?.data?.message ||
+          error.message ||
+          "Failed to get user data by ID"
       );
     }
   }
@@ -204,6 +229,24 @@ const usersSlice = createSlice({
         );
       })
       .addCase(markDead.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+      })
+       .addCase(getUserByID.pending, (state) => {
+        state.isLoading = false;
+        state.errorMessage = "";
+      })
+      .addCase(getUserByID.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.userDataByID = action.payload;
+        const userId = action.meta.arg;
+        state.userData = state.userData.filter(
+          (u) => u.id !== userId
+        );
+      })
+      .addCase(getUserByID.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;

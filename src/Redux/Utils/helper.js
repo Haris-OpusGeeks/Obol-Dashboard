@@ -65,7 +65,6 @@ export const fetchApi = async ({
 
         if (newAccessToken) {
           await saveAccessToken(newAccessToken);
-          // store.dispatch(updateAccessToken(newAccessToken));
 
           // Retry the original request with the new token
           config.headers.Authorization = `Bearer ${newAccessToken}`;

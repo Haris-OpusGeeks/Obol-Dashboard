@@ -4,15 +4,19 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import DefaultAvatar from "../otherImages/default.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData, updateUser } from "../Redux/Reducers/usersSlice";
+import { getUserData, updateUser, getUserByID } from "../Redux/Reducers/usersSlice";
 import Swal from "sweetalert2";
+import UserDetailModal from "./UserDetailModal";
 
 const UserDataTable = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const usersState = useSelector((state) => state.users) || {};
-  const { userData = [], isLoading, isError, errorMessage } = usersState;
+  const { userData = [],userDataByID, isLoading, isError, errorMessage } = usersState;
+
+  const [showModal, setShowModal] = useState(false);
+
 
   useEffect(() => {
     dispatch(getUserData());
@@ -33,10 +37,26 @@ const UserDataTable = () => {
       : "N/A",
     defaultMessage: user.defaultMessage,
   }));
+
+  console.log("userDataByID>>>>1234",userDataByID);
   
 
   const handleEditUser = (rowData) => {
     navigate("/edit-user", { state: { client: rowData } });
+  };
+
+  const handleShowDetail = async (userId) => {
+    try {
+          await dispatch(getUserByID(userId)).unwrap();
+          setShowModal(true);
+           
+        } catch (error) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Failed to get the user detail",
+          });
+        }
   };
 
   const handleDeleteUser = async (rowData) => {
@@ -149,6 +169,13 @@ const UserDataTable = () => {
           return (
             <div className="d-flex gap-2 justify-content-center">
               <Icon
+                onClick={() => handleShowDetail(rowData.id)}
+                className="text-primary cursor-pointer"
+                icon="ic:round-remove-red-eye"
+                width="22"
+                height="22"
+              />
+              <Icon
                 onClick={() => handleEditUser(rowData)}
                 className="text-primary cursor-pointer"
                 icon="line-md:edit"
@@ -191,6 +218,18 @@ const UserDataTable = () => {
           className="overflow-hidden packageTable"
         />
       </div>
+
+      <UserDetailModal
+        showModal={showModal}
+        inactiveUserDataByID={null}
+        userDataByID={userDataByID}
+        verficationStepUpdateAt={null}
+        onClose={() => {
+          setShowModal(false);
+          dispatch(getUserData());
+        }
+      } 
+      />
     </div>
   );
 };

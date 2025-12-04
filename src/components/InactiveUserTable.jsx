@@ -1,16 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import { Icon } from "@iconify/react";
 import DefaultAvatar from "../otherImages/default.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getInactiveUsers,markDead} from "../Redux/Reducers/usersSlice";
+import { getInactiveUsers,getUserByID,markDead} from "../Redux/Reducers/usersSlice";
 import Swal from "sweetalert2";
+import { Button } from "bootstrap";
+import UserDetailModal from "./UserDetailModal";
 
 const InactiveUserTable = () => {
   const dispatch = useDispatch();
 
-  const { inactiveData, isLoading, isError, errorMessage } =
+  const { inactiveData,userDataByID, isLoading, isError, errorMessage } =
     useSelector((state) => state.users);
+
+    const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
 
@@ -30,6 +34,22 @@ const InactiveUserTable = () => {
       ? new Date(item.lastSeen).toLocaleString()
       : "N/A",
   }));
+
+  console.log("InactiveuserDataByID>>>>1234",userDataByID);
+
+  const handleShowDetail = async (userId) => {
+    try {
+          await dispatch(getUserByID(userId)).unwrap();
+          setShowModal(true);
+            
+        } catch (error) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Failed to get the user detail",
+          });
+        }
+  };
 
 const handleDeleteUser = async (userId) => {
   const confirmed = await Swal.fire({
@@ -125,14 +145,20 @@ const handleDeleteUser = async (userId) => {
         customBodyRenderLite: (dataIndex) => {
           const rowData = formattedData[dataIndex];
           return (
-            <div className="d-flex gap-2 justify-content-center">
+            <div className="d-flex gap-2 justify-content-center align-items-center">
               <Icon
-                onClick={() => handleDeleteUser(rowData.id)}
-                className="text-danger cursor-pointer"
-                icon="material-symbols:delete-outline"
+                onClick={() => handleShowDetail(rowData.id)}
+                className="text-primary cursor-pointer"
+                icon="ic:round-remove-red-eye"
                 width="22"
                 height="22"
               />
+              <button
+                onClick={() => handleDeleteUser(rowData.id)}
+                className="whiteText cursor-pointer bg-danger px-8 py-4 rounded-3"
+                width="22"
+                height="22"
+              >Mark Dead</button>
             </div>
           );
         },
@@ -152,6 +178,8 @@ const handleDeleteUser = async (userId) => {
     search: true,
   };
 
+  const entryList = inactiveData.filter(i => i.id == userDataByID.id);
+  const entry = entryList.length ==0? null: entryList[0];
   return (
     <div className="card basic-data-table">
       <div className="card-body">
@@ -161,6 +189,19 @@ const handleDeleteUser = async (userId) => {
           options={options}
           className="overflow-hidden packageTable"
         />
+
+        <UserDetailModal
+        showModal={showModal}
+        inactiveUserDataByID={userDataByID}
+        userDataByID={userDataByID}
+       verficationStepUpdateAt={entry?.stepUpdatedAt}
+
+        onClose={() => {
+          setShowModal(false);
+          dispatch(getInactiveUsers());
+        }
+      } 
+      />
       </div>
     </div>
   );

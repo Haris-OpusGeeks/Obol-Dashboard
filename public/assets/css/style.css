@@ -15759,3 +15759,18 @@ td.fc-header-center {
   transition: .5s;
 }
 .copy-invoice:hover, .d-invoice:hover{color: #eb1c24 !important;}
+
+
+
+.userDetailModal{height: 100%; display: flex; align-items: center;}
+.userDetailModal .modal-content{overflow: hidden;border-radius: 15px;}
+.userDetailModal .modal-header{background-color: #eb1c24;}
+.userDetailModal .modal-header h5{color: #fff;}
+.userDetailModal .modal-body{padding: 45px 25px; background-color: #ecc9cd;}
+.userDetailModal .modal-body p{font-size: 20px; color: #000;}
+.userDetailModal .modal-body p strong{}
+.userDetailModal .btn-close{filter: invert(1);opacity: 1;}
+
+
+
+
