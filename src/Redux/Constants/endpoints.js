@@ -12,6 +12,7 @@ const endPoints = {
     INACTIVE_USERS: 'v1/user/retrieve/inactive',
     MARK_DEAD:'v1/user/mark_dead',
     GET_USER_BY_ID :'v1/user/retrieve_by_id',
+    DELETE_USER :'v1/user/delete',
 
     GET_COUPONS:'v1/couponcode/retrieve',
     ADD_COUPON:'v1/couponcode/insert',

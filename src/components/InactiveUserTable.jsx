@@ -3,7 +3,7 @@ import MUIDataTable from "mui-datatables";
 import { Icon } from "@iconify/react";
 import DefaultAvatar from "../otherImages/default.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getInactiveUsers,getUserByID,markDead} from "../Redux/Reducers/usersSlice";
+import { getInactiveUsers,getUserByID,markDead, updateUser} from "../Redux/Reducers/usersSlice";
 import Swal from "sweetalert2";
 import { Button } from "bootstrap";
 import UserDetailModal from "./UserDetailModal";
@@ -51,7 +51,7 @@ const InactiveUserTable = () => {
         }
   };
 
-const handleDeleteUser = async (userId) => {
+const handleMarkDeadUser = async (userId) => {
   const confirmed = await Swal.fire({
     title: "Are you sure?",
     text: "Do you want to mark this user as dead?",
@@ -82,6 +82,49 @@ const handleDeleteUser = async (userId) => {
     }
   }
 };
+
+const handleDeleteUser = async (rowData) => {
+    const confirmed = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to delete this user?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+    });
+
+    if (confirmed.isConfirmed) {
+      try {
+        const birthTimestamp = rowData.birthDate
+        ? new Date(rowData.birthDate).getTime()
+        : 0;
+        const updatedUser = {
+          id: rowData.id,
+          deleted: 1, 
+        };
+
+        console.log("Final Delete Data>>>", updatedUser);
+        console.log("BirthDAte>>>", rowData.birthDate);
+        await dispatch(updateUser(updatedUser)).unwrap();
+
+        Swal.fire({
+          icon: "success",
+          title: "User Deleted Successfully!",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+
+        // Refresh the user data after deletion
+        dispatch(getInactiveUsers());
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to delete the user!",
+        });
+      }
+    }
+  };
 
 
   const columns = [
@@ -153,8 +196,15 @@ const handleDeleteUser = async (userId) => {
                 width="22"
                 height="22"
               />
+              {/* <Icon
+                onClick={() => handleDeleteUser(rowData)}
+                className="text-danger cursor-pointer"
+                icon="material-symbols:delete-outline"
+                width="22"
+                height="22"
+              /> */}
               <button
-                onClick={() => handleDeleteUser(rowData.id)}
+                onClick={() => handleMarkDeadUser(rowData.id)}
                 className="whiteText cursor-pointer bg-danger px-8 py-4 rounded-3"
                 width="22"
                 height="22"

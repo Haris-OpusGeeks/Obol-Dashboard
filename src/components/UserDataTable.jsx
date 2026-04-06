@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import DefaultAvatar from "../otherImages/default.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData, updateUser, getUserByID } from "../Redux/Reducers/usersSlice";
+import { getUserData, updateUser, getUserByID,deleteUser } from "../Redux/Reducers/usersSlice";
 import Swal from "sweetalert2";
 import UserDetailModal from "./UserDetailModal";
 
@@ -20,6 +20,7 @@ const UserDataTable = () => {
 
   useEffect(() => {
     dispatch(getUserData());
+    // console.log(getUserData,"All User DAta <<<<");
   }, [dispatch]);
 
   if (isLoading) return <h6>Loading...</h6>;
@@ -71,19 +72,8 @@ const UserDataTable = () => {
 
     if (confirmed.isConfirmed) {
       try {
-        const birthTimestamp = rowData.birthDate
-        ? new Date(rowData.birthDate).getTime()
-        : 0;
-        const updatedUser = {
-          ...rowData,
-          birthDate:birthTimestamp,
-          active: 0,
-          deleted: 1, // Mark as deleted
-        };
-
-        console.log("Final Delete Data>>>", updatedUser);
-        console.log("BirthDAte>>>", rowData.birthDate);
-        await dispatch(updateUser(updatedUser)).unwrap();
+        const deleteID = rowData.id;
+        dispatch(deleteUser(deleteID));
 
         Swal.fire({
           icon: "success",

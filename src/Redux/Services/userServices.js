@@ -59,6 +59,16 @@ class UserServices {
     });
     return response;
   };
+
+      deleteUser = async (data) => {
+    const response = await fetchApi({
+      method: "POST",
+      endPoint: endPoints.DELETE_USER,
+      token: true,
+      data,
+    });
+    return response;
+  };
 }
 
 

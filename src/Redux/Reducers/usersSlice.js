@@ -99,6 +99,29 @@ export const markDead = createAsyncThunk(
   }
 );
 
+export const deleteUser = createAsyncThunk(
+  "users/deleteUser",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await userServices.deleteUser({ id: userId });
+      const { status, data } = response;
+
+      if (status === 200 || status === 201) {
+        return data?.data || null;
+      } else {
+        return rejectWithValue("Unexpected response status: " + status);
+      }
+    } catch (error) {
+      console.error("Delete User API error:", error);
+      return rejectWithValue(
+        error.response?.data?.message ||
+          error.message ||
+          "Failed to delete user"
+      );
+    }
+  }
+);
+
 export const getUserByID = createAsyncThunk(
   "users/getUserById",
   async (usergetId, { rejectWithValue }) => {
@@ -229,6 +252,23 @@ const usersSlice = createSlice({
         );
       })
       .addCase(markDead.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+      })
+      .addCase(deleteUser.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = "";
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        const deletedId = action.meta.arg;
+        state.userData = state.userData.filter(
+          (u) => u.id !== deletedId
+        );
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;

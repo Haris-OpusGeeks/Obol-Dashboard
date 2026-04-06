@@ -11,7 +11,7 @@ const CouponDataTable = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const couponsState = useSelector((state) => state.coupons) || {};
+  const couponsState = useSelector((state) => state.coupons) || {}; 
   const { couponData = [], isLoading, isError, errorMessage } = couponsState;
 
   useEffect(() => {
